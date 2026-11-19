@@ -1,6 +1,4 @@
-#ifndef SQUARE_H
-#define SQUARE_H
-#include<iostream>
+#pragma once
 class Square{
     int id;
     bool value;
@@ -24,4 +22,3 @@ class Square{
         isEmpty = v;
     }
 };
-#endif

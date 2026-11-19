@@ -1,7 +1,5 @@
-#ifndef TYPES_H
-#define TYPES_H
+#pragma once
 enum pType{
     PC,
     OPPONENT
 };
-#endif

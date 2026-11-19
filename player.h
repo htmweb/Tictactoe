@@ -1,5 +1,4 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#pragma once
 #include "types.h"
 #include "square.h"
 class Player{
@@ -26,4 +25,3 @@ class OPP:public Player{
     void getInput(Square (&sq)[9]);
     void setInput(Square *sq);
 };
-#endif
