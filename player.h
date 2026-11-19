@@ -16,7 +16,7 @@ class Player{
         return lost;
     }
     void logic(pType player);
-    void incPoints(Square *sq);
+    void incPoints(Square *sq,pType type);
     void playPC(Square (&sq)[9]);
 };
 class OPP:public Player{
