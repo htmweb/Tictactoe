@@ -1,5 +1,6 @@
 #include "player.h"
 #include "types.h"
+#include <random>
 #include<iostream>
 void Player :: logic(pType player){
     if(player == OPPONENT){
@@ -18,7 +19,7 @@ void OPP :: getInput(Square (&sqs)[9]){
         getInput(sqs);
         }
         else{
-            if(sqs[val-1].getValue()){
+            if(!sqs[val-1].getIsEmpty()){
                 std::cout<<"Enter valid slot number"<<std::endl;
                 getInput(sqs);
             }else{
@@ -37,7 +38,7 @@ void OPP :: setInput(Square *sq){
     sq[input-1].setValue(false);
     sq[input-1].setIsEmpty(false);
 }
-bool getLostAllAxis(Square *sq,pType type){
+bool getWin(Square *sq,pType type){
     bool logic = true;
     if(type == OPPONENT){
         logic = false;
@@ -75,31 +76,40 @@ bool getLostAllAxis(Square *sq,pType type){
    }
 }
 void Player :: incPoints(Square *sq,pType type){
-    lost = getLostAllAxis(sq,type);
+    win = getWin(sq,type);
 }
 void Player :: playPC(Square (&sq)[9]){
     Square tempSqs[9];
     std::copy(std::begin(sq),std::end(sq),std::begin(tempSqs));
     int index = 0;
+    std::vector<int> frees;
     bool makeMove = false;
     for(Square slot : tempSqs){
+        
         if(slot.getIsEmpty()){
+            frees.push_back(index);
             tempSqs[index].setValue(true);
             tempSqs[index].setIsEmpty(false);
-            bool isLost = getLostAllAxis(tempSqs,PC);
-            if(!isLost){
+            bool isWin = getWin(tempSqs,PC);
+            if(isWin){
                 sq[index].setValue(true);
                 sq[index].setIsEmpty(false);
                 makeMove = true;
+                win = true;
                 break;
             }else{
                 tempSqs[index].setValue(false);
+                tempSqs[index].setIsEmpty(true);
             }
         }
         index++;
     }
     if(!makeMove){
-        lost = true;
-        std::cout << "Player withdraws and OPP has won..."<<std::endl;
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+        std::uniform_int_distribution<>dis(0,frees.size()-1);
+        int rand = dis(gen);
+        sq[frees.at(rand)].setValue(true);
+        sq[frees.at(rand)].setIsEmpty(false);
     }
 }

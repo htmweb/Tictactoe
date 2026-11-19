@@ -3,7 +3,7 @@
 #include "square.h"
 class Player{
     pType type;
-    bool lost = false;
+    bool win = false;
     public:
     Player(pType Ptype){
         type = Ptype;
@@ -11,8 +11,8 @@ class Player{
     pType getType(){
         return type;
     }
-    bool getLost(){
-        return lost;
+    bool getWinStatus(){
+        return win;
     }
     void logic(pType player);
     void incPoints(Square *sq,pType type);

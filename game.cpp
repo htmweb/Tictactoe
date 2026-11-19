@@ -31,7 +31,7 @@ void Game :: gameLoop(Square (&sqs)[9]){
     std::cout<<std::endl<<"\t\t THE TIC TAC TOE"<<std::endl<<std::endl;
     std::cout<<std::endl<<"\t-------0 is you and X is pc--------"<<std::endl<<std::endl;
 
-    while(!opp.getLost() && !pc.getLost() && rounds<20){
+    while(!opp.getWinStatus() && !pc.getWinStatus() && rounds<20){
         auto p = players[rounds%2];
         p.logic(p.getType());
         if(p.getType() == OPPONENT){
@@ -44,11 +44,11 @@ void Game :: gameLoop(Square (&sqs)[9]){
         }
         display(sqs);
 
-        if(pc.getLost()){
-            cout << "PC is lost... Game end" << std::endl;
+        if(pc.getWinStatus()){
+            cout << "PC is win... Game end" << std::endl;
             std::exit(0);
-        }else if(opp.getLost()){
-            cout << "OPP is lost... Game end" << std::endl;
+        }else if(opp.getWinStatus()){
+            cout << "OPP is win... Game end" << std::endl;
             std::exit(0);
         }
         cout<<endl;
